@@ -1,0 +1,25 @@
+<%- include('templates/header') %>
+<main class="container">
+    <h1 class="text-center my-5">Editar servicio</h1>
+    <form action="/servicios/editar" method="POST">
+        <input type="hidden" id="serviceId" name="serviceId" value="<%= servicio._id %>">
+        <div class="mb-4">
+            <label for="nombre" class="form-label">Nombre</label>
+            <input type="text" name="nombre" id="nombre" placeholder="Servicio" class="form-control" value="<%= servicio.nombre %>">
+        </div>
+        <div class="mb-4">
+            <label for="comentario" class="form-label">Comentario</label>
+            <textarea name="comentario" id="comentario" rows="3" placeholder="Descripción del servicio" class="form-control"><%= servicio.comentario %></textarea>
+        </div>
+        <% if (error) { %>
+            <div class="d-flex justify-content-center my-2 invalid-feedback">
+                <p class="mb-1 fw-bold"><%= error %></p>
+            </div>
+        <% } %>
+        <div class="d-flex justify-content-end">
+            <a class="btn btn-secondary me-4" href="/servicios/1" role="button">Cancelar</a>
+            <button type="submit" class="btn btn-danger btn-sm">Editar servicio</button>
+        </div>
+    </form>
+</main>
+<%- include('templates/footer') %>

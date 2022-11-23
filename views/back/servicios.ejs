@@ -1,0 +1,69 @@
+<%- include('./templates/header') %> 
+    <main class="container my-5 mt-1">
+        <h1 class="text-center mb-4">SERVICIOS</h1>
+        <div class="d-grid mb-4">
+            <a href="nuevo" class="btn btn-danger">Crear servicio</a>
+        </div>
+        <div class="container table-responsive">
+            <table class="table table-striped table-sm">
+                <thead>
+                    <tr class="table-rows">
+                        <th scope="col" class="col-service w-25 pe-2">Servicio</th>
+                        <th scope="col" class="col-description w-50 px-2">Descripcion</th>
+                        <th scope="col" class="col-date px-4 text-center">Fecha</th>
+                        <th scope="col" class="text-center col-actions">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% servicios.forEach(({nombre,comentario,fecha,id}) => { %>
+                        <tr class="table-rows">
+                            <td class="col-service w-25 pe-2"><%= nombre %></td>
+                            <td class="col-description w-50 px-2"><%= comentario %></td>
+                            <td class="col-date px-4"><%= fecha.toLocaleDateString('es-ES') %></td>
+                            <td class="d-flex justify-content-end col-actions"> 
+                                <a href="editar/<%= id %>" class="btn btn-danger bnt-sm">Editar</a>
+                                <a href="ver/<%= id %>" class="btn btn-danger bnt-sm mx-1">Ver</a>
+                                <a href="eliminar/<%= id %>" class="btn btn-danger bnt-sm">Eliminar</a>
+                            </td>
+                        </tr>
+                    <% }) %>
+                </tbody>
+            </table>
+        </div>
+        <div class="container mt-4">
+            <div class="d-flex justify-content-center mt-4">
+                <p class="mb-1"><span class="fw-bold">Total:</span> <%= total %></p>
+            </div>
+            <nav id="paginationNav" aria-label="Page navigation example">
+                <% if (pages > 0) { %>
+                    <ul class="pagination justify-content-center">
+                        <% if (current == 1) { %>
+                            <li class="page-item disabled"><a class="page-link link-danger">First</a></li>
+                        <% } else { %>
+                            <li class="page-item"><a href="/servicios/1" class="page-link link-danger">First</a></li>
+                        <% } %>
+                        <% var i = (Number(current) > (pageLinksNum + 1) ? Number(current) - pageLinksNum : 1) %>
+                        <% if (i !== 1) { %>
+                            <li class="page-item disabled"><a class="page-link link-danger">...</a></li>
+                        <% } %>
+                        <% for (; i <= (Number(current) + pageLinksNum) && i <= pages; i++) { %>
+                            <% if (i == current) { %>
+                                <li class="page-item active"><a class="page-link link-danger link-danger-active" style="color: #FFFFFF !important; background-color: #b02a37; border-color: #dc3545;"><%= i %></a></li>
+                            <% } else { %>
+                                <li class="page-item"><a href="/servicios/<%= i %>" class="page-link link-danger"><%= i %></a></li>
+                            <% } %>
+                            <% if (i == Number(current) + pageLinksNum && i < pages) { %>
+                                <li class="page-item disabled"><a class="page-link link-danger">...</a></li>
+                            <% } %>
+                        <% } %>
+                        <% if (current == pages) { %>
+                            <li class="page-item disabled"><a class="page-link link-danger">Last</a></li>
+                        <% } else { %>
+                            <li class="page-item"><a href="/servicios/<%= pages %>" class="page-link link-danger">Last</a></li>
+                        <% } %>
+                    </ul>
+                <% } %>
+            </nav>
+        </div>
+    </main>
+<%- include('./templates/footer') %> 

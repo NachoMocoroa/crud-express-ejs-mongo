@@ -1,0 +1,20 @@
+.table-rows {
+    display: flex;
+    width: 100%;
+}
+
+.col-service {
+    width: 25%;
+}
+
+.col-description {
+    width: 45%;
+}
+
+.col-date {
+    width: 10%;
+}
+
+.col-actions {
+    width: 20%;
+}
